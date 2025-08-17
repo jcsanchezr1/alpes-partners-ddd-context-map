@@ -1,0 +1,53 @@
+Domain AlpesPartners {
+  domainVisionStatement = "Plataforma integral que permite a las marcas gestionar, escalar y optimizar asociaciones estratégicas con afiliados, influencers, embajadores y socios B2B en un ecosistema global."
+  
+  Subdomain MarketingAfiliados {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Automatiza programas de afiliación, gestionando reclutamiento, conversiones, comisiones y optimización de rendimiento."
+  }
+
+  Subdomain MarketingInfluencers {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Conecta marcas con influencers y creadores de contenido, gestionando campañas, contratos y atribución de resultados."
+  }
+
+  Subdomain ProgramasLealtad {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Activa clientes y empleados como embajadores de marca, gestionando referidos, recompensas e incentivos."
+  }
+
+  Subdomain GestionAlianzas {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Columna vertebral que centraliza contratos, pagos, cumplimiento normativo y análisis financiero de alianzas estratégicas."
+  }
+
+  Subdomain ReclutamientoMarketplace {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Facilita descubrimiento y onboarding de afiliados, influencers y partners estratégicos mediante herramientas automatizadas."
+  }
+
+  Subdomain TrackingAtribucion {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Garantiza el registro confiable de clics, conversiones y atribución multicanal en tiempo real."
+  }
+
+  Subdomain Reportes {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Provee dashboards, reportes avanzados y análisis ROI para maximizar la efectividad de las campañas."
+  }
+
+  Subdomain PagosCompliance {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Automatiza pagos globales y asegura cumplimiento regulatorio y antifraude."
+  }
+
+  Subdomain Seguridad {
+    type = GENERIC_SUBDOMAIN
+    domainVisionStatement = "Brinda autenticación, autorización y servicios de seguridad estandarizados"
+  }
+
+  Subdomain CRM {
+    type = GENERIC_SUBDOMAIN
+    domainVisionStatement = "Apoya operaciones internas de gestión de campañas, comunicaciones y procesos de backoffice."
+  }
+}

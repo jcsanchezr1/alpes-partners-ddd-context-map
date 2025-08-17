@@ -1,0 +1,226 @@
+// Dominio Principal AlpesPartners (TO-BE)
+Domain AlpesPartners {
+  domainVisionStatement = "Plataforma integral que permite a las marcas gestionar, escalar y optimizar asociaciones estratégicas con afiliados, influencers, embajadores y socios B2B en un ecosistema global."
+  
+  Subdomain MarketingAfiliados {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Automatiza programas de afiliación, gestionando reclutamiento, conversiones, comisiones y optimización de rendimiento."
+  }
+
+  Subdomain MarketingInfluencers {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Conecta marcas con influencers y creadores de contenido, gestionando campañas, contratos y atribución de resultados."
+  }
+
+  Subdomain ProgramasLealtad {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Activa clientes y empleados como embajadores de marca, gestionando referidos, recompensas e incentivos."
+  }
+
+  Subdomain GestionAlianzas {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Columna vertebral que centraliza contratos, pagos, cumplimiento normativo y análisis financiero de alianzas estratégicas."
+  }
+
+  Subdomain ReclutamientoMarketplace {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Facilita descubrimiento y onboarding de afiliados, influencers y partners estratégicos mediante herramientas automatizadas."
+  }
+
+  Subdomain TrackingAtribucion {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Garantiza el registro confiable de clics, conversiones y atribución multicanal en tiempo real."
+  }
+
+  Subdomain Reportes {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Provee dashboards, reportes avanzados y análisis ROI para maximizar la efectividad de las campañas."
+  }
+
+  Subdomain PagosCompliance {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Automatiza pagos globales y asegura cumplimiento regulatorio y antifraude."
+  }
+
+  Subdomain Seguridad {
+    type = GENERIC_SUBDOMAIN
+    domainVisionStatement = "Brinda autenticación, autorización y servicios de seguridad estandarizados"
+  }
+
+  Subdomain CRM {
+    type = GENERIC_SUBDOMAIN
+    domainVisionStatement = "Apoya operaciones internas de gestión de campañas, comunicaciones y procesos de backoffice."
+  }
+}
+
+// Definición de los Contextos Delimitados
+BoundedContext MarketingAfiliadosContext {
+  domainVisionStatement = "Automatiza programas de afiliación, gestionando reclutamiento, conversiones, comisiones y optimización de rendimiento."
+  responsibilities = "Gestión de programas de afiliados y soporte al crecimiento de la red."
+  Aggregate Afiliado {
+    Entity Afiliado {
+      String id
+      String region
+      String estado
+    }
+  }
+}
+
+BoundedContext MarketingInfluencersContext {
+  domainVisionStatement = "Conecta marcas con influencers y creadores de contenido, gestionando campañas, contratos y atribución de resultados."
+  responsibilities = "Gestión de campañas y contratos con influencers."
+  Aggregate Influencer {
+    Entity Influencer {
+      String id
+      String plataforma
+      String audiencia
+    }
+  }
+}
+
+BoundedContext ProgramasLealtadContext {
+  domainVisionStatement = "Activa clientes y empleados como embajadores de marca, gestionando referidos, recompensas e incentivos."
+  responsibilities = "Gestión de embajadores, referidos e incentivos."
+  Aggregate Referido {
+    Entity Referido {
+      String id
+      String origen
+      String recompensa
+    }
+  }
+}
+
+BoundedContext GestionAlianzasContext {
+  domainVisionStatement = "Columna vertebral que centraliza contratos, pagos, cumplimiento normativo y análisis financiero de alianzas estratégicas."
+  responsibilities = "Gestión global de contratos, pagos y compliance."
+  Aggregate Contrato {
+    Entity Contrato {
+      String id
+      String tipo
+      String estado
+    }
+  }
+}
+
+BoundedContext ReclutamientoMarketplaceContext {
+  domainVisionStatement = "Facilita descubrimiento y onboarding de afiliados, influencers y partners estratégicos mediante herramientas automatizadas."
+  responsibilities = "Descubrimiento y onboarding de socios."
+  Aggregate Partner {
+    Entity Partner {
+      String id
+      String tipo // afiliado, influencer, b2b
+      String estado
+    }
+  }
+}
+
+BoundedContext TrackingAtribucionContext {
+  domainVisionStatement = "Garantiza el registro confiable de clics, conversiones y atribución multicanal en tiempo real."
+  responsibilities = "Registro confiable de clics, conversiones y ventas."
+  Aggregate Conversion {
+    Entity Conversion {
+      String id
+      String canal
+      String timestamp
+    }
+  }
+}
+
+BoundedContext ReportesContext {
+  domainVisionStatement = "Provee dashboards, reportes avanzados y análisis ROI para maximizar la efectividad de las campañas."
+  responsibilities = "Dashboards y reportes ROI globales."
+  Aggregate Reporte {
+    Entity Reporte {
+      String id
+      String tipo
+      String resultado
+    }
+  }
+}
+
+BoundedContext PagosComplianceContext {
+  domainVisionStatement = "Automatiza pagos globales y asegura cumplimiento regulatorio y antifraude."
+  responsibilities = "Pagos automatizados y cumplimiento regulatorio."
+  Aggregate Pago {
+    Entity Pago {
+      String id
+      String metodo
+      String estado
+    }
+  }
+}
+
+BoundedContext SeguridadContext {
+  domainVisionStatement = "Brinda autenticación, autorización y servicios de seguridad estandarizados."
+  responsibilities = "Autenticación y autorización estándar."
+  Aggregate Usuario {
+    Entity Usuario {
+      String id
+      String rol
+      String estado
+    }
+  }
+}
+
+BoundedContext CRMContext {
+  domainVisionStatement = "Apoya operaciones internas de gestión de campañas, comunicaciones y procesos de backoffice."
+  responsibilities = "Gestión de procesos internos y campañas."
+  Aggregate Campania {
+    Entity Campania {
+      String id
+      String nombre
+      String estado
+    }
+  }
+}
+
+// Context Map TO-BE
+ContextMap AlpesPartners_TOBE {
+  state = TO_BE
+  contains MarketingAfiliadosContext
+  contains MarketingInfluencersContext
+  contains ProgramasLealtadContext
+  contains GestionAlianzasContext
+  contains ReclutamientoMarketplaceContext
+  contains TrackingAtribucionContext
+  contains ReportesContext
+  contains PagosComplianceContext
+  contains SeguridadContext
+  contains CRMContext
+
+  // Core depende de Tracking para eventos de conversión. OHS/PL porque Tracking expone APIs públicas y lenguaje publicado.
+  MarketingAfiliadosContext [D]<-[U,OHS,PL] TrackingAtribucionContext
+  MarketingInfluencersContext [D]<-[U,OHS,PL] TrackingAtribucionContext
+  ProgramasLealtadContext [D]<-[U,OHS,PL] TrackingAtribucionContext
+
+  // Reportes consume resultados de los Core, que exponen un Published Language (PL) estandarizado.
+  ReportesContext [D]<-[U,PL] MarketingAfiliadosContext
+  ReportesContext [D]<-[U,PL] MarketingInfluencersContext
+  ReportesContext [D]<-[U,PL] ProgramasLealtadContext
+
+  // Pagos depende de Seguridad para credenciales, pero se conforma al modelo de Seguridad (CF).
+  PagosComplianceContext [D,CF]<-[U] SeguridadContext
+
+  // Afiliados depende de CRM para datos de clientes, conformándose al modelo de CRM (CF).
+  ReclutamientoMarketplaceContext [D,CF]<-[U] CRMContext
+
+  // Reclutamiento expone servicios abiertos (OHS/PL) y Core los consume en onboarding.
+  MarketingAfiliadosContext [D]<-[U,OHS,PL] ReclutamientoMarketplaceContext
+  MarketingInfluencersContext [D]<-[U,OHS,PL] ReclutamientoMarketplaceContext
+
+  // Core dependen de Seguridad, ajustándose como Conformist a un modelo estándar.
+  MarketingAfiliadosContext [D,CF]<-[U] SeguridadContext
+  MarketingInfluencersContext [D,CF]<-[U] SeguridadContext
+  ProgramasLealtadContext [D,CF]<-[U] SeguridadContext
+  GestionAlianzasContext [D,CF]<-[U] SeguridadContext
+
+  // Core dependen de Pagos con ACL para no contaminar sus modelos internos.
+  MarketingAfiliadosContext [D,ACL]<-[U] PagosComplianceContext
+  ProgramasLealtadContext [D,ACL]<-[U] PagosComplianceContext
+  GestionAlianzasContext [D,ACL]<-[U] PagosComplianceContext
+
+  // Core dependen de GestionAlianzas como backbone contractual, usando Published Language.
+  MarketingAfiliadosContext [D]<-[U,PL] GestionAlianzasContext
+  MarketingInfluencersContext [D]<-[U,PL] GestionAlianzasContext
+  ProgramasLealtadContext [D]<-[U,PL] GestionAlianzasContext
+}

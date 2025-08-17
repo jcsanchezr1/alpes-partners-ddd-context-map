@@ -1,0 +1,75 @@
+// Dominio Principal AlpesPartners (AS-IS)
+Domain AlpesPartners_ASIS {
+  domainVisionStatement = "Plataforma monolítica centralizada que concentra todas las funcionalidades en un único sistema con alto acoplamiento, reuso de tablas y sin límites claros de contexto."
+  
+  Subdomain Marketing {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Gestión conjunta de afiliados, influencers y creadores de contenido en un único módulo monolítico."
+  }
+
+  Subdomain AlianzasYLealtad {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Programas de lealtad, contratos, pagos y compliance integrados en un mismo bloque."
+  }
+
+  Subdomain Reportes {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Reportes y dashboards centralizados que dependen directamente de otros módulos."
+  }
+
+  Subdomain Seguridad {
+    type = GENERIC_SUBDOMAIN
+    domainVisionStatement = "Autenticación y autorización básica implementada de forma transversal, sin aislamiento."
+  }
+
+}
+
+// Definición de Contextos Delimitados (AS-IS)
+BoundedContext MarketingContext {
+  responsibilities = "Gestión integrada de afiliados, influencers y creadores de contenido."
+  domainVisionStatement = "Marketing como un bloque único que mezcla la lógica de captación, campañas y atribución sin separación técnica."
+}
+
+BoundedContext AlianzasYLealtadContext {
+  responsibilities = "Gestión de programas de lealtad, alianzas estratégicas, contratos, pagos y compliance."
+  domainVisionStatement = "Un solo módulo concentra reglas de negocio distintas (contratos, incentivos, pagos), generando complejidad y acoplamiento."
+}
+
+BoundedContext ReportesContext {
+  responsibilities = "Generación de reportes y dashboards globales."
+  domainVisionStatement = "Los reportes consumen directamente datos de marketing y alianzas desde las mismas tablas del monolito."
+}
+
+BoundedContext SeguridadContext {
+  responsibilities = "Autenticación y autorización básica embebida en cada módulo."
+  domainVisionStatement = "Seguridad duplicada en todo el monolito, con Shared Kernel en roles y usuarios."
+}
+
+// Context Map AS-IS
+ContextMap AlpesPartners_ASIS {
+  state = AS_IS
+  contains MarketingContext
+  contains AlianzasYLealtadContext
+  contains ReportesContext
+  contains SeguridadContext
+
+  // --- Relaciones principales documentadas ---
+  // Marketing y Alianzas comparten tablas y lógica de negocio (ej: usuarios, contratos, pagos). Shared Kernel representa que no hay límites técnicos, ambos módulos dependen de las mismas entidades y esquemas de base de datos.
+  MarketingContext [SK]<->[SK] AlianzasYLealtadContext
+
+  // Reportes consume datos crudos de los módulos principales. No existe Published Language; Reportes accede directamente a tablas de marketing.
+  ReportesContext -> MarketingContext
+
+  // Los reportes leen directamente datos de contratos, pagos y programas de lealtad, sin capa de integración.
+  ReportesContext -> AlianzasYLealtadContext
+
+  // Seguridad compartida en todos los módulos mediante código duplicado y tablas comunes de usuarios. Seguridad (roles, autenticación) está embebida en marketing.
+  SeguridadContext [SK]<->[SK] MarketingContext
+
+  // Seguridad se comparte también con contratos, pagos y compliance.
+  SeguridadContext [SK]<->[SK] AlianzasYLealtadContext
+
+  // Seguridad también se integra directamente con reportes, sin servicios desacoplados.
+  SeguridadContext [SK]<->[SK] ReportesContext
+}
+
