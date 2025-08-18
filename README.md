@@ -54,3 +54,19 @@
 
 - Se siguió el tutorial oficial: [https://misw4406.github.io/docs/semana_1/tutorial_2/](https://misw4406.github.io/docs/semana_1/tutorial_2/)
 - El repositorio base usado para la práctica se encuentra en: [https://github.com/MISW4406-202310/Alpes-Context-Map](https://github.com/MISW4406-202310/Alpes-Context-Map)
+
+## Lenguaje Ubicuo
+
+### AS-IS
+
+La imagen correspondiente al flujo de marketing de afiliados AS-IS se encuentra en la carpeta
+  ```
+  src/main/resources/
+  ```
+
+### TO-BE
+La imagen correspondiente al flujo de marketing de afiliados TO-BE se encuentra en la carpeta
+
+  ```
+  src/main/resources/
+  ```
