@@ -63,6 +63,8 @@ La imagen correspondiente al flujo de marketing de afiliados AS-IS se encuentra 
   ```
   src/main/resources/
   ```
+  Archivo:
+  - `Event Storming - AlpesPartners AS IS.jpg`
 
 ### TO-BE
 La imagen correspondiente al flujo de marketing de afiliados TO-BE se encuentra en la carpeta
@@ -70,3 +72,5 @@ La imagen correspondiente al flujo de marketing de afiliados TO-BE se encuentra 
   ```
   src/main/resources/
   ```
+  Archivo:
+  - `Event Storming - AlpesPartners TO-BE.jpg`
