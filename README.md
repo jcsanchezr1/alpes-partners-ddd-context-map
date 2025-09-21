@@ -10,6 +10,7 @@
   - `alpes_domains.cml`
   - `alpes_contexts_asis.cml`
   - `alpes_contexts_tobe.cml`
+  - `alpes_contexts_tobe_v2.cml`
 
 - Las imágenes PNG generadas de los contextos se encuentran en:
   ```
@@ -17,12 +18,12 @@
   ```
   - Imagen del contexto AS-IS: `src/main/resources/alpes_contexts_asis.png`
   - Imagen del contexto TO-BE: `src/main/resources/alpes_contexts_tobe.png`
+  - Imagen del contexto TO-BE-V2: `src/main/resources/alpes_contexts_tobe_v2.png`
 
 - Las imágenes generadas automáticamente por Context Mapper (al usar la extensión) se almacenan en:
   ```
   src-gen/
   ```
- 
 
 ## Requisitos y Herramientas de una de las maquinas que se trabajo.
 
@@ -89,6 +90,8 @@ La imagen correspondiente al flujo de marketing de afiliados TO-BE se encuentra 
   ```
   src/main/resources/
   ```
+  Archivo:
+  - `alpes_contexts_tobe_v2.png`
 
 ## Justificación de cambios sobre el TO-BE
 
