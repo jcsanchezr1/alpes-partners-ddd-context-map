@@ -70,3 +70,49 @@ La imagen correspondiente al flujo de marketing de afiliados TO-BE se encuentra 
   ```
   src/main/resources/
   ```
+
+### TO-BE V2
+La imagen correspondiente al flujo de marketing de afiliados TO-BE se encuentra en la carpeta
+
+  ```
+  src/main/resources/
+  ```
+
+## Justificación de cambios sobre el TO-BE
+
+### 1 Cambio de Seguridad por Autenticación
+
+**Cambio Realizado:**
+- Se renombró el subdominio "Seguridad" por "Autenticación" y se actualizó su visión de dominio.
+
+**Justificación:**
+- **Enfoque Específico**: "Autenticación" es más específico y alineado con las responsabilidades reales del contexto: gestión de identidades, autorización y tokens de acceso.
+- **Claridad de Responsabilidades**: El término "Seguridad" es demasiado amplio y puede incluir aspectos como encriptación, firewalls, etc., que no son responsabilidades de este contexto.
+- **Alineación con Implementación**: La implementación actual se enfoca en autenticación de usuarios y gestión de roles, no en aspectos generales de seguridad.
+
+### 2 Renombramiento y Reestructuración de Contextos
+
+**Cambios Realizados:**
+- `MarketingAfiliados` → `MarketingInfluencers`
+- `GestionAlianzas` → `GestionContratos`
+
+**Justificación:**
+- **Alineación con Implementación**: Solo se han implementado los microservicios de influencers, campañas y contratos.
+- **Claridad Semántica**: "GestionContratos" es más específico que "GestionAlianzas" y refleja mejor la funcionalidad implementada.
+
+### 3 Reportes Context
+
+**Cambio Realizado:**
+- Se expandieron las responsabilidades para incluir análisis ROI, métricas de rendimiento y dashboards avanzados.
+
+**Justificación:**
+- **Comentario Original**: Se mencionó que faltaba describir con mayor claridad las responsabilidades específicas.
+
+### 4 Adición de CampanasMarketing como Dominio Core
+
+**Cambio Realizado:**
+- Se añadió "CampanasMarketing" como subdominio CORE_DOMAIN
+
+**Justificación:**
+- **Flujo de Negocio Central**: Las campañas son el elemento central que conecta influencers con contratos, actuando como el catalizador del ecosistema.
+- **Creación Automática**: El sistema implementa creación automática de campañas basada en eventos de influencers registrados.

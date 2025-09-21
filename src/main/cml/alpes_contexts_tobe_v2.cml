@@ -1,0 +1,423 @@
+// Dominio Principal AlpesPartners (TO-BE) - Arquitectura Orientada a Eventos
+Domain AlpesPartners {
+  domainVisionStatement = "Plataforma integral que permite a las marcas gestionar, escalar y optimizar asociaciones estratégicas con afiliados, influencers, embajadores y socios B2B en un ecosistema global basado en eventos."
+  
+  Subdomain MarketingInfluencers {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Conecta marcas con influencers y creadores de contenido, gestionando campañas, contratos y atribución de resultados mediante eventos de integración."
+  }
+
+  Subdomain CampanasMarketing {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Automatiza la creación y gestión de campañas de marketing basadas en eventos de influencers, optimizando el rendimiento y la conversión."
+  }
+
+  Subdomain GestionContratos {
+    type = CORE_DOMAIN
+    domainVisionStatement = "Gestiona contratos entre influencers y campañas, procesando términos contractuales y generando eventos de integración para el ecosistema."
+  }
+
+  Subdomain TrackingAtribucion {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Garantiza el registro confiable de clics, conversiones y atribución multicanal en tiempo real mediante eventos de tracking."
+  }
+
+  Subdomain Reportes {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Provee dashboards, reportes avanzados y análisis ROI basados en eventos de métricas y conversiones para maximizar la efectividad de las campañas."
+  }
+
+  Subdomain PagosCompliance {
+    type = SUPPORTING_DOMAIN
+    domainVisionStatement = "Automatiza pagos globales y asegura cumplimiento regulatorio y antifraude basado en eventos de transacciones."
+  }
+
+  Subdomain Autenticacion {
+    type = GENERIC_SUBDOMAIN
+    domainVisionStatement = "Brinda servicios de autenticación, autorización y gestión de identidades estandarizados para el ecosistema de microservicios."
+  }
+
+  Subdomain CRM {
+    type = GENERIC_SUBDOMAIN
+    domainVisionStatement = "Apoya operaciones internas de gestión de campañas, comunicaciones y procesos de backoffice mediante eventos de negocio."
+  }
+}
+
+// Definición de los Contextos Delimitados - Arquitectura Orientada a Eventos
+BoundedContext MarketingInfluencersContext {
+  domainVisionStatement = "Conecta marcas con influencers y creadores de contenido, gestionando campañas, contratos y atribución de resultados mediante eventos de integración."
+  responsibilities = "Gestión de influencers, registro de perfiles, categorización por audiencia y generación de eventos InfluencerRegistrado."
+  Aggregate Influencer {
+    Entity Influencer {
+      String id
+      String nombre
+      String email
+      List<String> categorias
+      String descripcion
+      String biografia
+      String sitio_web
+      String telefono
+      EstadoInfluencer estado
+      MetricasInfluencer metricas
+    }
+  }
+  
+  // Eventos de Integración
+  Event InfluencerRegistrado {
+    String influencer_id
+    String nombre
+    String email
+    List<String> categorias
+    List<String> plataformas
+    DateTime fecha_registro
+  }
+}
+
+BoundedContext CampanasMarketingContext {
+  domainVisionStatement = "Automatiza la creación y gestión de campañas de marketing basadas en eventos de influencers, optimizando el rendimiento y la conversión."
+  responsibilities = "Gestión de campañas, creación automática basada en eventos, optimización de rendimiento y generación de eventos CampanaCreada."
+  Aggregate Campana {
+    Entity Campana {
+      String id
+      String nombre
+      String descripcion
+      TipoComision tipo_comision
+      Float valor_comision
+      String moneda
+      List<String> categorias_objetivo
+      DateTime fecha_inicio
+      DateTime fecha_fin
+      EstadoCampana estado
+      String influencer_origen_id
+    }
+  }
+  
+  // Eventos de Integración
+  Event CampanaCreada {
+    String campana_id
+    String nombre
+    String descripcion
+    TipoComision tipo_comision
+    Float valor_comision
+    String moneda
+    List<String> categorias_objetivo
+    DateTime fecha_inicio
+    DateTime fecha_fin
+    String influencer_id
+    String influencer_nombre
+    String influencer_email
+  }
+}
+
+BoundedContext GestionContratosContext {
+  domainVisionStatement = "Gestiona contratos entre influencers y campañas, procesando términos contractuales y generando eventos de integración para el ecosistema."
+  responsibilities = "Gestión de contratos, procesamiento de términos, compensaciones y generación de eventos ContratoCreado."
+  Aggregate Contrato {
+    Entity Contrato {
+      String id
+      String influencer_id
+      String campana_id
+      Float monto_total
+      String moneda
+      TipoContrato tipo_contrato
+      EstadoContrato estado
+      DateTime fecha_creacion
+      DateTime fecha_inicio
+      DateTime fecha_fin
+    }
+  }
+  
+  // Eventos de Integración
+  Event ContratoCreado {
+    String contrato_id
+    String influencer_id
+    String campana_id
+    Float monto_total
+    String moneda
+    TipoContrato tipo_contrato
+    DateTime fecha_creacion
+  }
+}
+
+BoundedContext TrackingAtribucionContext {
+  domainVisionStatement = "Garantiza el registro confiable de clics, conversiones y atribución multicanal en tiempo real mediante eventos de tracking."
+  responsibilities = "Registro confiable de clics, conversiones y ventas mediante eventos de tracking en tiempo real."
+  Aggregate Conversion {
+    Entity Conversion {
+      String id
+      String canal
+      String influencer_id
+      String campana_id
+      String contrato_id
+      DateTime timestamp
+      Float valor_conversion
+      String moneda
+    }
+  }
+  
+  // Eventos de Tracking
+  Event ConversionRegistrada {
+    String conversion_id
+    String canal
+    String influencer_id
+    String campana_id
+    String contrato_id
+    DateTime timestamp
+    Float valor_conversion
+    String moneda
+  }
+}
+
+BoundedContext ReportesContext {
+  domainVisionStatement = "Provee dashboards, reportes avanzados y análisis ROI basados en eventos de métricas y conversiones para maximizar la efectividad de las campañas."
+  responsibilities = "Dashboards y reportes ROI globales basados en eventos de métricas, análisis de rendimiento de campañas e influencers."
+  Aggregate Reporte {
+    Entity Reporte {
+      String id
+      String tipo
+      String resultado
+      DateTime fecha_generacion
+      String influencer_id
+      String campana_id
+      Float roi
+      Float conversion_rate
+    }
+  }
+  
+  // Eventos de Reportes
+  Event ReporteGenerado {
+    String reporte_id
+    String tipo
+    String resultado
+    DateTime fecha_generacion
+    String influencer_id
+    String campana_id
+    Float roi
+    Float conversion_rate
+  }
+}
+
+BoundedContext PagosComplianceContext {
+  domainVisionStatement = "Automatiza pagos globales y asegura cumplimiento regulatorio y antifraude basado en eventos de transacciones."
+  responsibilities = "Pagos automatizados y cumplimiento regulatorio basado en eventos de transacciones y contratos."
+  Aggregate Pago {
+    Entity Pago {
+      String id
+      String contrato_id
+      String influencer_id
+      Float monto
+      String metodo
+      EstadoPago estado
+      DateTime fecha_pago
+      String moneda
+    }
+  }
+  
+  // Eventos de Pagos
+  Event PagoProcesado {
+    String pago_id
+    String contrato_id
+    String influencer_id
+    Float monto
+    String metodo
+    EstadoPago estado
+    DateTime fecha_pago
+    String moneda
+  }
+}
+
+BoundedContext AutenticacionContext {
+  domainVisionStatement = "Brinda servicios de autenticación, autorización y gestión de identidades estandarizados para el ecosistema de microservicios."
+  responsibilities = "Autenticación y autorización estándar para todos los microservicios del ecosistema."
+  Aggregate Usuario {
+    Entity Usuario {
+      String id
+      String email
+      String rol
+      EstadoUsuario estado
+      DateTime fecha_creacion
+      DateTime ultimo_acceso
+    }
+  }
+  
+  // Eventos de Autenticación
+  Event UsuarioAutenticado {
+    String usuario_id
+    String email
+    String rol
+    DateTime timestamp
+    String token_acceso
+  }
+}
+
+BoundedContext CRMContext {
+  domainVisionStatement = "Apoya operaciones internas de gestión de campañas, comunicaciones y procesos de backoffice mediante eventos de negocio."
+  responsibilities = "Gestión de procesos internos y campañas mediante eventos de negocio y comunicación."
+  Aggregate Campania {
+    Entity Campania {
+      String id
+      String nombre
+      String descripcion
+      EstadoCampania estado
+      DateTime fecha_creacion
+      String responsable_id
+    }
+  }
+  
+  // Eventos de CRM
+  Event CampaniaInternaCreada {
+    String campania_id
+    String nombre
+    String descripcion
+    EstadoCampania estado
+    DateTime fecha_creacion
+    String responsable_id
+  }
+}
+
+// Context Map TO-BE - Arquitectura Orientada a Eventos
+ContextMap AlpesPartners_TOBE {
+  state = TO_BE
+  contains MarketingInfluencersContext
+  contains CampanasMarketingContext
+  contains GestionContratosContext
+  contains TrackingAtribucionContext
+  contains ReportesContext
+  contains PagosComplianceContext
+  contains AutenticacionContext
+  contains CRMContext
+
+  // Flujo principal de eventos: Influencers -> Campañas -> Contratos
+  MarketingInfluencersContext [D]<-[U,PL] CampanasMarketingContext
+  CampanasMarketingContext [D]<-[U,PL] GestionContratosContext
+
+  // Core depende de Tracking para eventos de conversión. OHS/PL porque Tracking expone APIs públicas y lenguaje publicado.
+  MarketingInfluencersContext [D]<-[U,OHS,PL] TrackingAtribucionContext
+  CampanasMarketingContext [D]<-[U,OHS,PL] TrackingAtribucionContext
+  GestionContratosContext [D]<-[U,OHS,PL] TrackingAtribucionContext
+
+  // Reportes consume resultados de los Core, que exponen un Published Language (PL) estandarizado.
+  ReportesContext [D]<-[U,PL] MarketingInfluencersContext
+  ReportesContext [D]<-[U,PL] CampanasMarketingContext
+  ReportesContext [D]<-[U,PL] GestionContratosContext
+  ReportesContext [D]<-[U,PL] TrackingAtribucionContext
+
+  // Pagos depende de Autenticación para credenciales, pero se conforma al modelo de Autenticación (CF).
+  PagosComplianceContext [D,CF]<-[U] AutenticacionContext
+
+  // CRM expone servicios abiertos (OHS/PL) y Core los consume en operaciones internas.
+  MarketingInfluencersContext [D]<-[U,OHS,PL] CRMContext
+  CampanasMarketingContext [D]<-[U,OHS,PL] CRMContext
+  GestionContratosContext [D]<-[U,OHS,PL] CRMContext
+
+  // Core dependen de Autenticación, ajustándose como Conformist a un modelo estándar.
+  MarketingInfluencersContext [D,CF]<-[U] AutenticacionContext
+  CampanasMarketingContext [D,CF]<-[U] AutenticacionContext
+  GestionContratosContext [D,CF]<-[U] AutenticacionContext
+
+  // Core dependen de Pagos con ACL para no contaminar sus modelos internos.
+  MarketingInfluencersContext [D,ACL]<-[U] PagosComplianceContext
+  GestionContratosContext [D,ACL]<-[U] PagosComplianceContext
+
+  // Tracking consume eventos de todos los Core para generar métricas unificadas.
+  TrackingAtribucionContext [D]<-[U,PL] MarketingInfluencersContext
+  TrackingAtribucionContext [D]<-[U,PL] CampanasMarketingContext
+  TrackingAtribucionContext [D]<-[U,PL] GestionContratosContext
+}
+
+// Arquitectura de Eventos - Apache Pulsar
+EventDrivenArchitecture AlpesPartnersEvents {
+  messageBroker = "Apache Pulsar"
+  
+  // Tópicos principales
+  Topic eventos_influencers {
+    description = "Eventos del microservicio de influencers"
+    events = [InfluencerRegistrado]
+  }
+  
+  Topic eventos_campanas {
+    description = "Eventos del microservicio de campañas"
+    events = [CampanaCreada]
+  }
+  
+  Topic eventos_contratos {
+    description = "Eventos del microservicio de contratos"
+    events = [ContratoCreado]
+  }
+  
+  Topic eventos_tracking {
+    description = "Eventos de tracking y conversiones"
+    events = [ConversionRegistrada]
+  }
+  
+  Topic eventos_reportes {
+    description = "Eventos de reportes y métricas"
+    events = [ReporteGenerado]
+  }
+  
+  Topic eventos_pagos {
+    description = "Eventos de pagos y transacciones"
+    events = [PagoProcesado]
+  }
+  
+  Topic eventos_autenticacion {
+    description = "Eventos de autenticación y autorización"
+    events = [UsuarioAutenticado]
+  }
+  
+  Topic eventos_crm {
+    description = "Eventos de CRM y operaciones internas"
+    events = [CampaniaInternaCreada]
+  }
+  
+  // Tópicos de Saga para compensaciones
+  Topic eventos_contratos_error {
+    description = "Eventos de error de contratos para compensación"
+  }
+  
+  Topic eventos_campanas_eliminacion {
+    description = "Comandos de eliminación de campañas para compensación"
+  }
+  
+  Topic eventos_influencers_eliminacion {
+    description = "Comandos de eliminación de influencers para compensación"
+  }
+}
+
+// Patrón Saga - Orquestación de Transacciones Distribuidas
+SagaOrchestration InfluencersCampanasContratosSaga {
+  description = "Saga de orquestación para el flujo completo: Influencer -> Campaña -> Contrato"
+  
+  // Pasos de la saga
+  Step CrearInfluencer {
+    command = "CrearInfluencer"
+    event = "InfluencerRegistrado"
+    error = "ErrorCreacionInfluencer"
+    compensation = "EliminarInfluencer"
+  }
+  
+  Step CrearCampana {
+    command = "CrearCampana"
+    event = "CampanaCreada"
+    error = "ErrorCreacionCampana"
+    compensation = "EliminarCampana"
+  }
+  
+  Step CrearContrato {
+    command = "CrearContrato"
+    event = "ContratoCreado"
+    error = "ErrorCreacionContrato"
+    compensation = "EliminarContrato"
+  }
+  
+  // Flujo de compensación en caso de error
+  CompensationFlow {
+    if ErrorCreacionContrato then {
+      execute EliminarCampana
+      execute EliminarInfluencer
+    }
+    if ErrorCreacionCampana then {
+      execute EliminarInfluencer
+    }
+  }
+}
